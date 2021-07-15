@@ -1,5 +1,4 @@
 # RNA-hyper-editing
-#Pipeline for Detection of RNA Hyper-Editing
 
 This pipeline was adapted from [Porath et al. 2014] (https://www.nature.com/articles/ncomms5726). The original scripts are publicly available on [github] (https://github.com/hagitpt/Hyper-editing). The changes we have made are outlined below and also clearly noted in comments throughout.
 
@@ -16,7 +15,7 @@ Inside of the master directory for your experiment, you create an output directo
 
 ##Indexing and Transforming the Reference Genome
 The script TransformIndexBWA_genome.sh requires a genome reference file provided as input with ".fa" extension, however the file extension must be left out when executing from the command line. An example is provided below using:
-```
+```unix
 TransformIndexBWA_genome.sh GRCh38.primary_assembly.genome #full input file name is GRCh38.primary_assembly.genome.fa
 ```
 The path to the original geonome and transformed genome indices should be provided in the "HARD CODED" section of the config.sh (lines 14-16).

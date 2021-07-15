@@ -44,13 +44,17 @@ Generate two files in bed format from the output of the pipeline, one with the c
 
 ```unix
 PATH1="/full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.8_0.2/H276_GABA-1.UE.bed_files"
+
 PATH2="full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.8_0.2/H276_GABA-2.UE.bed_files"
+
 cat ${PATH1}/A2G.bed ${PATH2}/A2G.bed > H276_GABA.UE.bed
 ```
 
 ```unix
 PATH1="/full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.8_0.2/H276_GABA-1.ES.bed_files"
+
 PATH2="full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.8_0.2/H276_GABA-2.ES.bed_files"
+
 cat ${PATH1}/A2G.bed ${PATH2}/A2G.bed > H276_GABA.ES.bed
 ```
 

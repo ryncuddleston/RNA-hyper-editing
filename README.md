@@ -1,6 +1,6 @@
 # RNA-hyper-editing
 
-This pipeline was adapted from [Porath et al. 2014] (https://www.nature.com/articles/ncomms5726). The original scripts are publicly available on [github] (https://github.com/hagitpt/Hyper-editing). The changes we have made are outlined below and also clearly noted in comments throughout.
+This pipeline was adapted from [Porath et al. 2014] (https://www.nature.com/articles/ncomms5726). The original scripts are publicly available on their [github] (https://github.com/hagitpt/Hyper-editing). The changes we have made are outlined below and also clearly noted in comments throughout.
 
 ##Directory Structure
 
@@ -14,9 +14,9 @@ This pipeline was adapted from [Porath et al. 2014] (https://www.nature.com/arti
 Inside of the master directory for your experiment, you create an output directory for each sample. This is specified in the "MODIFY PER SAMPLE" section of config.sh (line 11). In each sample output directory, recursively place the HE_scripts directory, which contains all of the scripts needed for hyper-editing detection.
 
 ##Indexing and Transforming the Reference Genome
-The script TransformIndexBWA_genome.sh requires a genome reference file provided as input with ".fa" extension, however the file extension must be left out when executing from the command line. An example is provided below using:
+The script TransformIndexBWA_genome.sh requires a genome reference file provided as input with ".fa" extension, however the file extension must be left out when executing from the command line. An example is provided below for the genome file named GRCh38.primary_assembly.genome.fa as input:
 ```unix
-TransformIndexBWA_genome.sh GRCh38.primary_assembly.genome #full input file name is GRCh38.primary_assembly.genome.fa
+TransformIndexBWA_genome.sh GRCh38.primary_assembly.genome
 ```
 The path to the original geonome and transformed genome indices should be provided in the "HARD CODED" section of the config.sh (lines 14-16).
 
@@ -40,22 +40,22 @@ A few places throughout the runHyper script we found it to be helpful to hardcod
 ####Step One: Create UE.bed and ES.bed Files
 Generate two files in bed format from the output of the pipeline, one with the coordinates of the A2G hyper-edited clusters (UE.bed) and one with the coordinates of the A2G sites (ES.bed). Since the example we have been providing used paired-end data, the pipeline will generate two separate output files which must be concatenated together.
 
-```
+```unix
 PATH1="/full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.8_0.2/H276_GABA-1.UE.bed_files"
 PATH2="full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.8_0.2/H276_GABA-2.UE.bed_files"
 cat ${PATH1}/A2G.bed ${PATH2}/A2G.bed > H276_GABA.UE.bed
 ```
 
-```
+```unix
 PATH1="/full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.8_0.2/H276_GABA-1.ES.bed_files"
 PATH2="full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.8_0.2/H276_GABA-2.ES.bed_files"
 cat ${PATH1}/A2G.bed ${PATH2}/A2G.bed > H276_GABA.ES.bed
 ```
 
 ####Step Two: Merging Overlapping Hyper-Editing Clusters and Counting Number of Editing Sites Per Cluster
-First we merge the hyper-edited clusters, so that any objects with overlapping coordiantes would be reported as only one hyper-editing event and not two separate clusters. Then we use the bed file of the A2G editing events within the hyper-editing clusters to count the number of editing sites per cluster, which is used in the Step Three of filtering.
+First we merge the hyper-edited clusters, so that any objects with overlapping coordiantes would be reported as only one hyper-editing event and not two separate clusters. Then we use the bed file of the A2G editing events within the hyper-editing clusters to count the number of editing sites per cluster, which is used in the Step Three of filtering. The following lines of code require [Bedtools] (https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html).
 
-```
+```unix
 sort -k1,1 -k2,2n H276_GABA.UE.bed > H276_GABA.UE.bed.sorted
 
 bedtools merge -i H276_GABA.UE.bed.sorted > H276_GABA.UE.bed.sorted.merged
@@ -93,7 +93,7 @@ write.table(UEstretched, file = "H276_GABA.UE.stretched", sep = "\t", append = F
 ####Step Four: Merging Overlapping Clusters and Counting Number of Editing Sites Per Cluster One Final Time
 After adjusting the boundaries of the cluter, or "stretching" as we refer to it, merging overlapping clusters and counting the number of A2G editing events in each hyper-editing cluster is performed one final time.
 
-```
+```unix
 bedtools merge -i H276_GABA.UE.stretched > H276_GABA.UE.bed.final
 
 bedtools intersect -a H276_GABA.UE.bed.final -b H276_GABA.ES.bed -wa -c > H276_GABA.UE.bed.counted.final

@@ -65,7 +65,7 @@ bedtools merge -i H276_GABA.UE.bed.sorted > H276_GABA.UE.bed.sorted.merged
 bedtools intersect -a H276_GABA.UE.bed.sorted.merged -b H276_GABA.ES.bed -wa -c > H276_GABA.UE.bed.counted.temp
 ```
 
-### #Step Three: Stretching Hyper-Edited Clusters
+###  Step Three: Stretching Hyper-Edited Clusters
 On a sample level, the average length (in nucleotides) of each hyper-editing cluster is calculated, in addition to the average number of A2G editing sites within these hyper-editing clusters. This number is then subtracted from the "start" coordinate and added to the "end" coordinate, effectively lengthening the cluster by 2x the average distance between editing sites, in order to account for the possibility that low-sequencing coverage at the edges of the defined cluster borders prevents inclusion of editing events resonably nearby.
 
 ```R

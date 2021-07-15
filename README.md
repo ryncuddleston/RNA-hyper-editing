@@ -1,6 +1,6 @@
 # RNA-hyper-editing
 
-This pipeline was adapted from [Porath et al. 2014] (https://www.nature.com/articles/ncomms5726). The original scripts are publicly available on their [github] (https://github.com/hagitpt/Hyper-editing). The changes we have made are outlined below and also clearly noted in comments throughout.
+This pipeline was adapted from [Porath et al. 2014](https://www.nature.com/articles/ncomms5726). The original scripts are publicly available on their [github] (https://github.com/hagitpt/Hyper-editing). The changes we have made are outlined below and also clearly noted in comments throughout.
 
 ##Directory Structure
 
@@ -53,7 +53,7 @@ cat ${PATH1}/A2G.bed ${PATH2}/A2G.bed > H276_GABA.ES.bed
 ```
 
 ####Step Two: Merging Overlapping Hyper-Editing Clusters and Counting Number of Editing Sites Per Cluster
-First we merge the hyper-edited clusters, so that any objects with overlapping coordiantes would be reported as only one hyper-editing event and not two separate clusters. Then we use the bed file of the A2G editing events within the hyper-editing clusters to count the number of editing sites per cluster, which is used in the Step Three of filtering. The following lines of code require [Bedtools] (https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html).
+First we merge the hyper-edited clusters, so that any objects with overlapping coordiantes would be reported as only one hyper-editing event and not two separate clusters. Then we use the bed file of the A2G editing events within the hyper-editing clusters to count the number of editing sites per cluster, which is used in the Step Three of filtering. The following lines of code require [Bedtools](https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html).
 
 ```unix
 sort -k1,1 -k2,2n H276_GABA.UE.bed > H276_GABA.UE.bed.sorted

@@ -67,7 +67,7 @@ bedtools intersect -a H276_GABA.UE.bed.sorted.merged -b H276_GABA.ES.bed -wa -c 
 ####Step Three: Stretching Hyper-Edited Clusters
 On a sample level, the average length (in nucleotides) of each hyper-editing cluster is calculated, in addition to the average number of A2G editing sites within these hyper-editing clusters. This number is then subtracted from the "start" coordinate and added to the "end" coordinate, effectively lengthening the cluster by 2x the average distance between editing sites, in order to account for the possibility that low-sequencing coverage at the edges of the defined cluster borders prevents inclusion of editing events resonably nearby.
 
-```
+```R
 UE <- read.delim("H276_GABA.UE.bed.counted.temp", header = FALSE, sep = "\t")
 totalclusters <- nrow(UE)
 
@@ -89,7 +89,7 @@ UEstretched <- cbind(chr, new.start, new.end)
 UEstretched <- as.data.frame(UEstretched)
 write.table(UEstretched, file = "H276_GABA.UE.stretched", sep = "\t", append = FALSE, quote = FALSE, col.names = FALSE, row.names = FALSE)
 
-```ruby
+```
 
 ####Step Four: Merging Overlapping Clusters and Counting Number of Editing Sites Per Cluster One Final Time
 After adjusting the boundaries of the cluter, or "stretching" as we refer to it, merging overlapping clusters and counting the number of A2G editing events in each hyper-editing cluster is performed one final time.

@@ -42,7 +42,7 @@ A few places throughout the runHyper script we found it to be helpful to hardcod
 #### Step One: Create UE.bed and ES.bed Files
 Generate two files in bed format from the output of the pipeline, one with the coordinates of the A2G hyper-edited clusters (UE.bed) and one with the coordinates of the A2G sites (ES.bed). Since the example we have been providing used paired-end data, the pipeline will generate two separate output files which must be concatenated together.
 
-```unix
+```shell
 PATH1="/full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.8_0.2/H276_GABA-1.UE.bed_files"
 
 PATH2="full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.8_0.2/H276_GABA-2.UE.bed_files"

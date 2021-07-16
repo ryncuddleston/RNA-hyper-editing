@@ -17,7 +17,7 @@ Inside of the master directory for your experiment, you create an output directo
 
 ## Indexing and Transforming the Reference Genome
 The script TransformIndexBWA_genome.sh requires a genome reference file provided as input with ".fa" extension, however the file extension must be left out when executing from the command line. An example is provided below for the genome file named GRCh38.primary_assembly.genome.fa as input:
-```unix
+```shell
 TransformIndexBWA_genome.sh GRCh38.primary_assembly.genome
 ```
 The path to the original geonome and transformed genome indices should be provided in the "HARD CODED" section of the config.sh (lines 14-16).
@@ -50,7 +50,7 @@ PATH2="full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.
 cat ${PATH1}/A2G.bed ${PATH2}/A2G.bed > H276_GABA.UE.bed
 ```
 
-```unix
+```shell
 PATH1="/full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.8_0.2/H276_GABA-1.ES.bed_files"
 
 PATH2="full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.8_0.2/H276_GABA-2.ES.bed_files"
@@ -61,7 +61,7 @@ cat ${PATH1}/A2G.bed ${PATH2}/A2G.bed > H276_GABA.ES.bed
 #### Step Two: Merging Overlapping Hyper-Editing Clusters and Counting Number of Editing Sites Per Cluster
 First we merge the hyper-edited clusters, so that any objects with overlapping coordiantes would be reported as only one hyper-editing event and not two separate clusters. Then we use the bed file of the A2G editing events within the hyper-editing clusters to count the number of editing sites per cluster, which is used in the Step Three of filtering. The following lines of code require [Bedtools](https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html).
 
-```unix
+```shell
 sort -k1,1 -k2,2n H276_GABA.UE.bed > H276_GABA.UE.bed.sorted
 
 bedtools merge -i H276_GABA.UE.bed.sorted > H276_GABA.UE.bed.sorted.merged
@@ -99,7 +99,7 @@ write.table(UEstretched, file = "H276_GABA.UE.stretched", sep = "\t", append = F
 #### Step Four: Merging Overlapping Clusters and Counting Number of Editing Sites Per Cluster One Final Time
 After adjusting the boundaries of the cluter, or "stretching" as we refer to it, merging overlapping clusters and counting the number of A2G editing events in each hyper-editing cluster is performed one final time.
 
-```unix
+```shell
 bedtools merge -i H276_GABA.UE.stretched > H276_GABA.UE.bed.final
 
 bedtools intersect -a H276_GABA.UE.bed.final -b H276_GABA.ES.bed -wa -c > H276_GABA.UE.bed.counted.final

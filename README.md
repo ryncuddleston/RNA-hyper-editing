@@ -2,7 +2,7 @@
 
 Our README walks users through how to utilize all the tools in this repository to detect RNA hyper-editing in RNA-seq datasets, expanding on the metholody outlined in [Cuddleston & Li et al., 2021](https://www.biorxiv.org/content/10.1101/2021.07.16.452690v1)
 
-This pipeline was adapted from [Porath et al. 2014] (https://www.nature.com/articles/ncomms5726). The scripts are publicly available on [github] (https://github.com/hagitpt/Hyper-editing). The changes we've made are outlined below and clearly noted in comments throughout.
+This pipeline was adapted from [Porath et al. 2014](https://www.nature.com/articles/ncomms5726). The scripts are publicly available on [github](https://github.com/hagitpt/Hyper-editing). The changes we've made are outlined below and clearly noted in comments throughout.
 
 ##Directory Structure
 Inside of the master directory for your experiment, you create an output directory for each sample. This is specified in the "MODIFY PER SAMPLE" section of config.sh (line 11). In each sample output directory, recursively place the HE_scripts directory, which contains all of the scripts needed for hyper-editing detection.

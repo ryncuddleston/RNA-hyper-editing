@@ -61,9 +61,9 @@ PATH2="full/path/to/experiment_name/H276_GABA/UEdetect.PE_0.05_0.6_30_0.6_0.1_0.
 cat ${PATH1}/A2G.bed ${PATH2}/A2G.bed > H276_GABA.ES.bed
 ```
 
-#### Step Two: Filtering editing sites that may represent common variants or reside within blacklisted regions of the genome
+#### Step Two: Filtering editing sites that may represent common variants or reside within problematic regions of the genome
 
-First, the ES BED file must be converted into a VCF file to input into [ANNOVAR](https://annovar.openbioinformatics.org/en/latest/user-guide/startup/#table_annovarpl), then we make use of the table_annovar.pl program to annotate common variants aggregated across several databases. We use [Bedtools](https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html) to execute filtering.
+First, the ES BED file must be converted into a VCF file to input into [ANNOVAR](https://annovar.openbioinformatics.org/en/latest/user-guide/startup/#table_annovarpl), then we make use of the table_annovar.pl program to annotate common variants aggregated across several databases. We use [Bedtools](https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html) to execute filtering. Blacklisted regions of the genome derived from [ENCODE](https://www.nature.com/articles/s41598-019-45839-z). Here, we additionally filtered out those editing sites which reside in homopolymeric stretches of the genome.
 
 ###### BED to VCF
 ```
@@ -98,7 +98,7 @@ table_annovar.pl $IN resources/annovar/humandb/ -buildver hg38 -out $OUT -remove
 
 awk 'BEGIN{OFS=FS="\t"}{if ( ($11=="." || $11=="dbsnp153CommonSNV") && ( $12<0.05 || $12=="AF")) print $0}' H276_GABA.myanno.hg38_multianno.txt > H276_GABA.myanno.hg38_multianno.txt.noCommon.txt
 
-bedtools intersect -a H276_GABA.myanno_multianno.txt.noCommon.txt -b hg38-blacklist.v2_sort.bed -v > H276_GABA.SNPsremoved_noblacklist.txt
+bedtools intersect -a H276_GABA.myanno_multianno.txt.noCommon.txt -b hg38-blacklist.v2_sort.bed, homopolymeric_sites.bed -v > H276_GABA.SNPsremoved_noblacklist.txt
 
 perl format_HE_files.pl H276_GABA.SNPsremoved_noblacklist.txt > H276_GABA.filtered.ES.bed
 ```

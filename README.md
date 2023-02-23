@@ -1,6 +1,6 @@
 # Hyperediting Detection Pipeline
 
-Our README walks users through how to utilize all the tools in this repository to detect RNA hyper-editing in RNA-seq datasets, expanding on the methodology outlined in [Cuddleston & Li et al., 2021](https://www.biorxiv.org/content/10.1101/2021.07.16.452690v1)
+Our README walks users through how to utilize all the tools in this repository to detect RNA hyper-editing in RNA-seq datasets, expanding on the methodology outlined in [Cuddleston & Li et al., 2022](https://www.nature.com/articles/s41467-022-30531-0)
 
 This pipeline was adapted from [Porath et al. 2014](https://www.nature.com/articles/ncomms5726). The scripts are publicly available on their [github](https://github.com/hagitpt/Hyper-editing). The changes we've made are outlined below and clearly noted in comments throughout.
 
